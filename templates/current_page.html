@@ -1,0 +1,166 @@
+{% load static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Current Goal Page</title>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/current">Current</a></li>
+            <li><a href="/history">History</a></li>
+        </ul>
+
+    </nav>
+
+</header>
+<style>
+    header {
+        background-color: #f0f0f0;
+        padding: 20px;
+    }
+
+    nav {
+        display: flex;
+        justify-content: center;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+    }
+
+    nav li {
+        margin-right: 20px;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        color: #333;
+    }
+    main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    section {
+        width: 100%;
+        max-width: 800px;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 10px #ccc;
+    }
+    .bigger-box {
+        height: 100px;
+        width: 600px;
+    }
+</style>
+<main>
+    <section id="current">
+        <form method="get">
+            {% csrf_token %}
+           <label for="textbox"> Enter ur goal for this {{ current_decade }}</label>
+            <input type = "text" id = "textbox" name="textbox">
+            <input type = "submit" value="Submit">
+
+        </form>
+        {% if user_current_goal %}
+            <div>
+                <h3> your current goal/s:  </h3>
+                <ul>
+                    {% for goal in user_current_goal %}
+                        <li style="color:green; fontWeight:bolder;">{{ goal }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <br>
+        <div>
+            <form method = "get">
+                {% csrf_token %}
+                <label for="user_proud_moments">Enter ur <b style="color:orangered">proud </b> moments that contributed towards ur goals this last 10 days</label>
+                <br>
+                <textarea placeholder="Enter the moments" class="bigger-box" id="user_proud_moments" name="user_proud_moments"> </textarea>
+                <br> <br>
+                <label for="user_best_moments">Enter ur <b style="color:orangered">best</b> moments from the last 10 days which may or may not related to ur goal</label>
+                <br>
+                <textarea class="bigger-box" id ="user_best_moments" name ="user_best_moments"></textarea>
+                <br><br>
+                <input type="submit" value="Submit">
+            </form>
+
+        </div>
+        {% if show_modal %}
+            <script>
+                $(document).ready(function() {
+                    $('#congratulationModal').modal('show');
+                });
+            </script>
+        {% endif %}
+        <!-- Modal -->
+        <div class="modal fade" id="congratulationModal" tabindex="-1" role="dialog" aria-labelledby="congratulationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="congratulationModalLabel">Congratulations!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Your proud and best moments are submitted successfully!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer>
+            <br><br><br>
+            <h5 style="color:orangered"><b>Previous proud moments</b></h5>
+            <ul>
+                {% for moment in previous_proud_moments %}
+                    <li> <b> {{ moment.proud_moment_text }} </b></li>
+                    <br>
+                {% endfor %}
+            </ul>
+            <h5 style="color:orangered"><b>Previous best moments</b></h5>
+            <ul>
+                {% for moment in previous_best_moments %}
+                    <li> <b>{{ moment.best_moment_text }} </b></li>
+                    <br>
+                {% endfor %}
+            </ul>
+        </footer>
+
+    </section>
+</main>
+<footer>
+    <p>Copyright © {{ current_year }} My Company</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <title>My Landing Page</title>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/current">Current</a></li>
+            <li><a href="/history">History</a></li>
+        </ul>
+
+    </nav>
+
+</header>
+<style>
+    main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    section {
+        width: 100%;
+        max-width: 800px;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 10px #ccc;
+    }
+</style>
+<main>
+    <section id="about">
+        <h2>About This Site</h2>
+        <p>This site is focused on creating personal goals and tracking them along with the ones we care.</p>
+    </section>
+    <section id="Mission">
+        <h2>Mission</h2>
+        <ul>
+            <li>Create goals which we wanna do it at the start of the month.</li>
+            <li>Enter the things we did which we feel proud about at the end of every 10 days</li>
+            <li>[Repeat]</li>
+        </ul>
+    </section>
+</main>
+<footer>
+    <p>Copyright © {{ current_year }} My Company</p>
+</footer>
+</body>
+</html>

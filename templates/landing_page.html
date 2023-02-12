@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    {% comment %} make this css page work
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">{% endcomment %}
     <title>My Landing Page</title>
 </head>
 <body>
@@ -18,6 +19,33 @@
 
 </header>
 <style>
+    header {
+        background-color: skyblue;
+        padding: 20px;
+    }
+    nav {
+        display: flex;
+        justify-content: center;
+    }
+    nav ul {
+        list-style: none;
+        display: flex;
+    }
+    nav li {
+        margin-right: 20px;
+    }
+    nav a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }
+    body {
+        {#background-color: #f2f2f2;#}
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        color: #333;
+    }
+
     main {
         display: flex;
         flex-wrap: wrap;
@@ -27,29 +55,36 @@
 
     section {
         width: 100%;
-        max-width: 800px;
+        max-width: 1200px;
         margin: 20px;
         padding: 20px;
         background-color: #f9f9f9;
         box-shadow: 0 0 10px #ccc;
     }
+    p, li {
+        line-height: 2;
+    }
 </style>
 <main>
     <section id="about">
         <h2>About This Site</h2>
-        <p>This site is focused on creating personal goals and tracking them along with the ones we care.</p>
+        <p>This site is focused on creating personal goals of us and tracking them along with the ones we care.<br> The goal of this site is to bring our <b><span style="color:cornflowerblue">best_version</span></b> out.</p>
     </section>
     <section id="Mission">
-        <h2>Mission</h2>
+        <h2>Actions</h2>
+        <p> Use current page to do the following </p>
         <ul>
-            <li>Create goals which we wanna do it at the start of the month.</li>
-            <li>Enter the things we did which we feel proud about at the end of every 10 days</li>
-            <li>[Repeat]</li>
+            <li>Create goals which we wanna do it on [1st, 11th, 21st] every month. Use single word with space for each goal.</li>
+            <li>Enter the things we did which we feel proud about at the end of every 10 days (10th, 20th, 30th of every month)- use new line for every moment. </li>
+            <li> you should also enter one or more best moments along with proud ones in the last 10 days (which may or may not relate to ur goal)-- Plz don't say I don't have any, I don't believe. Just look for it, its there. </li>
+            <li>[Repeat this every month]</li>
         </ul>
     </section>
+    <section id="version">
+        <h2>version</h2>
+        <p>This site use new version for every 10 days. It just follows date for the versioning but uses only year, month and part of the month.<br> Ex- the version for dates 01/01/2023 - 01/10/2023 is 23.1.0, version for dates 01/11/23 - 01/20/23 is 23.1.1,
+            version for dates 01/21/23 -01/30/23 is 23.1.2. yeah this app thinks 3 versions in a month is good to track our moments. Lets see how it works.  </p>
+    </section>
 </main>
-<footer>
-    <p>Copyright © {{ current_year }} My Company</p>
-</footer>
 </body>
 </html>

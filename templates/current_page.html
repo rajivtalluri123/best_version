@@ -1,9 +1,11 @@
 {% load static %}
 {% load bootstrap4 %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    {% comment %} make this css page work
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">{% endcomment %}
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -27,7 +29,7 @@
 </header>
 <style>
     header {
-        background-color: #f0f0f0;
+        background-color: skyblue;
         padding: 20px;
     }
 
@@ -48,10 +50,11 @@
     nav a {
         text-decoration: none;
         color: #333;
+        font-weight: bold;
     }
 
     body {
-        background-color: #f2f2f2;
+        {#background-color: #f2f2f2;#}
         font-family: Arial, sans-serif;
         font-size: 16px;
         color: #333;
@@ -65,15 +68,19 @@
 
     section {
         width: 100%;
-        max-width: 800px;
+        max-width: 1200px;
         margin: 20px;
         padding: 20px;
         background-color: #f9f9f9;
         box-shadow: 0 0 10px #ccc;
     }
-    .bigger-box {
-        height: 100px;
-        width: 600px;
+    input[type="submit"] {
+        background-color: green;
+        color: white;
+        font-weight: bold;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
     }
 </style>
 <main>
@@ -82,7 +89,7 @@
             {% csrf_token %}
            <label for="textbox"> Enter ur goal for this {{ current_decade }}</label>
             <input type = "text" id = "textbox" name="textbox">
-            <input type = "submit" value="Submit">
+            <input type = "submit" value="Add Goals">
 
         </form>
         {% if user_current_goal %}
@@ -90,24 +97,17 @@
                 <h3> your current goal/s:  </h3>
                 <ul>
                     {% for goal in user_current_goal %}
-                        <li style="color:green; fontWeight:bolder;">{{ goal }}</li>
+                        <li style="color:green; font-weight:bold;">{{ goal }}</li>
                     {% endfor %}
                 </ul>
             </div>
         {% endif %}
         <br>
         <div>
-            <form method = "get">
+            <form method = "post">
                 {% csrf_token %}
-                <label for="user_proud_moments">Enter ur <b style="color:orangered">proud </b> moments that contributed towards ur goals this last 10 days</label>
-                <br>
-                <textarea placeholder="Enter the moments" class="bigger-box" id="user_proud_moments" name="user_proud_moments"> </textarea>
-                <br> <br>
-                <label for="user_best_moments">Enter ur <b style="color:orangered">best</b> moments from the last 10 days which may or may not related to ur goal</label>
-                <br>
-                <textarea class="bigger-box" id ="user_best_moments" name ="user_best_moments"></textarea>
-                <br><br>
-                <input type="submit" value="Submit">
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary"> Submit</button>
             </form>
 
         </div>
@@ -123,13 +123,13 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="congratulationModalLabel">Congratulations!</h5>
+                        <h5 class="modal-title" id="congratulationModalLabel">Congrats Mate for your awesome last 10 Days!</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        Your proud and best moments are submitted successfully!
+                        Visit the page tommorrow and add your next 10 days goals. You desrver a party today :)
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -159,8 +159,6 @@
 
     </section>
 </main>
-<footer>
-    <p>Copyright © {{ current_year }} My Company</p>
-</footer>
+
 </body>
 </html>

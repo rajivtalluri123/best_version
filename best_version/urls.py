@@ -25,6 +25,6 @@ urlpatterns = [
     path('', views.landing_page, name='landing_page'),
     path('home', views.landing_page, name='landing_page'),
     path('current', views.current_page, name='current_page'),
-    path('history', views.landing_page, name='landing_page')
+    path('history', views.history_page, name='history_page')
 ]
 urlpatterns += staticfiles_urlpatterns()

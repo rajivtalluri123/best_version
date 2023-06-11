@@ -27,3 +27,7 @@ class Version(models.Model):
     id = models.AutoField(primary_key=True)
     user_name = models.CharField(max_length=200)
     best_version = models.CharField(max_length=200)
+
+class TempMoment(models.Model):
+    id = models.AutoField(primary_key=True)
+    temp_moment = models.CharField(max_length=500)
